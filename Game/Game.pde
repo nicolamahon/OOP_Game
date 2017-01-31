@@ -5,10 +5,24 @@ void setup()
 }
 
 
-
-Block b = new Block();
+ArrayList<Block> blocks = new ArrayList<Block>();
+Block d = new Block();
 
 void draw() 
 {
-  b.drawBlocks();
+    d.createBlocks();
+    
+   // printBlocks();
+    
+    
+   // b.drawBlocks();
+}
+
+void printBlocks()
+{
+ for(int i=0; i<blocks.size(); i++)
+  {
+     Block x = blocks.get(i);
+     println(x.xPos, x.yPos);
+  } 
 }
