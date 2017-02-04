@@ -34,4 +34,10 @@ class Paddle extends Objects
     }
   } // end hitPaddle()
   
-}
+  // to change the velocity of the ball depending on paddle interaction
+  void Velocity(Ball b)
+  {
+    
+  }
+  
+} // end class Paddle
