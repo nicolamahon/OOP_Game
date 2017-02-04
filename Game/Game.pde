@@ -32,27 +32,6 @@ void draw()
     checkImpactBlock();
 }
 
-void printBlocks()
-{
- for(int i=0; i<blocks.size(); i++)
-  {
-     Block x = blocks.get(i);
-     println(x.xPos, x.yPos);
-  } 
-}
-
-// draw blocks
-void blockDraw()
-{
-  for (int i=0; i < blocks.size(); i++) 
-  {
-    if (blocks.get(i) != null) 
-    {
-      b = blocks.get(i);
-      b.render(b.xPos, b.yPos);
-    }
-  }
-}
 
 // draw scoreboard
 void scoreboard()
@@ -73,7 +52,7 @@ void ballUpdate()
     }
 }
 
-
+// check for ball impact with paddle
 void checkImpactPaddle()
 {
   if (ball != null && paddle.hitPaddle(ball)) 
@@ -83,4 +62,25 @@ void checkImpactPaddle()
     // change ball velocity based on paddle
     paddle.Velocity(ball);
   }
-}
+} // end checkImpactPaddle()
+
+// check for ball impact with block
+void checkImpactBlock()
+{
+  if (ball != null)
+  {
+    for(int i=0; i<blocks.size(); i++)
+    {
+      if(blocks.get(i) != null && blocks.get(i).hitBlock(ball) == true)
+      {
+        ball.bounce();
+        blocks.remove(i);
+        score++;
+      }
+    }
+  }
+} // end checkImpactBlock()
+
+
+
+  
