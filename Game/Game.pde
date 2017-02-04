@@ -16,6 +16,12 @@ void draw()
 {
     background(255);
     scoreboard();
+    
+    if (ball != null)
+    {
+      ball.render();
+      ball.update();
+    }
 }
 
 void printBlocks()
@@ -44,7 +50,7 @@ void blockDraw()
 void scoreboard()
 {
   fill(0, 0, 0);
-  rect(brickWidth/2, 300, brickWidth, brickHeight);
+  rect(width/20, height*0.6, width/100, height/25);
   fill(255);
   text("Score: "+score, 1, 305);
 }
