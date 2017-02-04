@@ -13,6 +13,7 @@ Ball ball;
 Paddle paddle;
 
 int score;
+boolean winState = false;
 
 void draw() 
 {
@@ -32,7 +33,7 @@ void draw()
     checkImpactBlock();
     
     //check for new ball needed
-    newBall();
+    checkLostBall();
 }
 
 
@@ -85,8 +86,8 @@ void checkImpactBlock()
   }
 } // end checkImpactBlock()
 
-// if ball lost, give new ball
-void newBall()
+// if ball lost
+void checkLostBall()
 {
   if(ball != null && ball.yPos > height)
   {
@@ -95,8 +96,8 @@ void newBall()
   }
 }
 
-boolean winState = false;
 
+// check for winner
 void winner()
 {
   for(int i=0; i<blocks.size(); i++)
@@ -112,6 +113,16 @@ void winner()
     println("WINNER");
     exit();
   }
+}
+
+// provide a new ball
+void mouseClicked() 
+{
+    // create ball
+    if (ball == null) 
+    {
+      ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 0, 0, -2);
+    }
 }
 
   
