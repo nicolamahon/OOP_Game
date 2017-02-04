@@ -62,3 +62,13 @@ void scoreboard()
   fill(255);
   text("Score: "+score, 1, 305);
 }
+
+// create and update ball location
+void ballUpdate()
+{
+  if (ball != null)
+    {
+      ball.render();
+      ball.update();
+    }
+}
