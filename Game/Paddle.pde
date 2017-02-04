@@ -8,8 +8,8 @@ class Paddle extends Objects
   {
     xPos = mouseX;
     yPos = height - 30;
-    padH = 20;
-    padW = 40;
+    padH = 10;
+    padW = 80;
   }
 
   // draw the paddle

@@ -34,7 +34,14 @@ void draw()
     drawAllBlocks();
     
     // create ball and update position
-    ballUpdate();
+    //ballUpdate();
+    if (ball != null)
+    {
+      background(125);
+      drawAllBlocks();
+      ball.render();
+      ball.update();
+    }
     
     // create paddle
     paddle.render();
@@ -46,7 +53,12 @@ void draw()
     checkImpactBlock();
     
     //check for new ball needed
-    checkLostBall();
+    //checkLostBall();
+    if(ball != null && ball.yPos > height)
+    {
+      ball = null;
+      score = 0;
+    }
     
     // check for winner
     winner();
@@ -66,6 +78,8 @@ void scoreboard()
 // create and update ball location
 void ballUpdate()
 {
+  background(125);
+  
   if (ball != null)
     {
       ball.render();
@@ -94,7 +108,7 @@ void checkImpactBlock()
     {
       Block a = blocks.get(i);
       if(a != null && a.hitBlock(ball) == true)
-      {
+      { 
         ball.bounce();
         blocks.remove(i);
         score++;
@@ -106,11 +120,7 @@ void checkImpactBlock()
 // if ball lost
 void checkLostBall()
 {
-  if(ball != null && ball.yPos > height)
-  {
-    ball = null;
-    score = 0;
-  }
+  
 }
 
 
@@ -138,13 +148,9 @@ void mousePressed()
     // create ball
     if (ball == null) 
     {
-      ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 0, 0, -2);
-      ballUpdate();
-  }
+      ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 1, 1, 15);
+    }
     
-    
-    // create ball and update position
-    //ballUpdate();
 }
 
 void initialiseBlocks()
