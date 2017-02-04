@@ -12,6 +12,12 @@ class Paddle extends Objects
     padW = 40;
   }
 
-
+  void render() 
+  {
+    fill(0);
+    xPrev = xPos;
+    xPos = mouseX;
+    rect(xPos, yPos, padW, padH);
+  }
   
 }
