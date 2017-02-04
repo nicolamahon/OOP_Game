@@ -27,6 +27,7 @@ class Block extends Objects
        rect(xPos, yPos, blockW, blockH); 
   }
   
+  /*
    // create the blocks
   void drawBlocks()
   {
@@ -37,7 +38,7 @@ class Block extends Objects
     for (int i=0; i<numRows; i++)
     {
       println("in OUTER FOR - createBlocks");
-      for (int j=0; j<(numCols+offset)/2; j++)
+      for (int j=0; j<numCols+1; j++)
       {
         
         println("in INNER FOR - createBlocks");
@@ -64,7 +65,7 @@ class Block extends Objects
     println(countODD);
     println(countEVEN);
   } // end createBlocks()
-  
+  */
   
   boolean hitBlock(Ball b)
   {

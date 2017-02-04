@@ -16,6 +16,10 @@ class Ball extends Objects
     this.diameter = diameter;
   } 
   
+  Ball()
+  {
+  }
+  
   // ball render
   void render() 
   {

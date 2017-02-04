@@ -1,12 +1,16 @@
 void setup()
 {
-  size(500, 500);
+  size(400, 400);
+  background(255);
   cursor(CROSS);
-  b.drawBlocks();
+  initialiseBlocks();
   paddle = new Paddle();
+  ball = new Ball();
+  
 }
 
 // global variables
+//Block[] blocks = new Block[0];
 ArrayList<Block> blocks = new ArrayList<Block>();
 Block b = new Block(0,0);
 Ball ball;
@@ -17,7 +21,9 @@ boolean winState = false;
 
 void draw() 
 {
-    background(255);
+    
+    drawAllBlocks();
+    //b.drawBlocks();
     scoreboard();
     
     // create ball and update position
@@ -34,15 +40,19 @@ void draw()
     
     //check for new ball needed
     checkLostBall();
+    
+    // check for winner
+    winner();
+    
 }
 
 
 // draw scoreboard
 void scoreboard()
 {
-  fill(0, 0, 0);
-  rect(width/20, height*0.6, width/100, height/25);
-  fill(255);
+  fill(255, 0, 0);
+  rect(0, height*0.6, width/10, height/25);
+  fill(0);
   text("Score: "+score, 1, 305);
 }
 
@@ -123,6 +133,38 @@ void mouseClicked()
     {
       ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 0, 0, -2);
     }
+}
+
+void initialiseBlocks()
+{
+  for (int j=0; j < b.numRows; j++) 
+  { // rows
+    // location of each row  
+    int y = b.blockH / 2 + j * b.blockH;
+    // set the row offset
+    int offset = 0;
+    
+    if (j % 2 == 0) 
+    {
+      offset = b.blockW / 2;
+    }
+    // draw the row
+    for (int i=offset; i < width+b.blockW/2.0; i += b.blockW) { // columns
+      blocks.add(new Block(i,y));
+    }
+  }
+}
+
+void drawAllBlocks()
+{
+  int count = 0;
+  for (int i=0; i<blocks.size()-1; i++)
+  {
+    Block b = blocks.get(i);
+    b.render(b.xPos, b.yPos);
+    count++;
+  }
+  println(count);
 }
 
   
