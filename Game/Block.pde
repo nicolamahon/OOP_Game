@@ -1,10 +1,12 @@
-class Block {
-  int xPos;
-  int yPos;
+class Block extends Objects 
+{
+  //int xPos;
+  //int yPos;
   color c;
   int blockW;
   int blockH;
-  int numRows;
+  float numRows;
+  float numCols;
   
   // Constructor
   Block(int x, int y) 
@@ -14,80 +16,66 @@ class Block {
     c = color(random(255), random(255), random(255));
     blockW = 50;
     blockH = 20;
-    numRows = 10;
+    numRows = 10.0;
+    numCols = 10.0;
   }
 
-  Block()
-  {
+  
 
-//    c = color(random(255), random(255), random(255));
-    blockW = 50;
-    blockH = 20;
-    numRows = 10;
-  }
 
   // draw block
   void render(int xPos, int yPos) 
   {
-    //rectMode(CENTER);
-    fill(c);
-    rect(xPos, yPos, blockW, blockH);
-  } // end render() Block
+       fill(c);
+       rect(xPos, yPos, blockW, blockH); 
+  }
   
    // create the blocks
-  void createBlocks()
+  void drawBlocks()
   {
+    int countODD = 0;
+    int countEVEN = 0;
     int offset = blockW/2;
     println("in function createBlocks");
     for (int i=0; i<numRows; i++)
     {
       println("in OUTER FOR - createBlocks");
-      for (int j=0; j<width; j++)
+      for (int j=0; j<(numCols+offset)/2; j++)
       {
-        if(i%2 == 0)
+        
+        println("in INNER FOR - createBlocks");
+        if(i%2 == 0)  // if even row
         {
-          //b.xPos = j*blockW;
-          //b.yPos = i*blockH;
-          Block b = new Block(j*blockW, i*blockH);
-          //println(j*blockW);
-          //println(i*blockH);
+          b.xPos = j*blockW;
+          b.yPos = i*blockH;
+          b.render(b.xPos, b.yPos);
           blocks.add(b);
-          println(b.xPos, b.yPos);
+          countODD++;
           //b.render(j*blockW, i*blockH);
-          b.render(b.xPos, b.yPos);
         }
-        else
+        else    // if odd row
         {
-          //b.xPos = (j*blockW)-offset;
-          //b.yPos = i*blockH;
-          Block b = new Block((j*blockW)-offset, i*blockH);
-          blocks.add(b);
-          println(xPos, yPos);
-          //b.render((j*blockW)-offset, i*blockH);
+          b.xPos = (j*blockW)-offset;
+          b.yPos = i*blockH;
           b.render(b.xPos, b.yPos);
+          blocks.add(b);
+          countEVEN++;
+          //b.render((j*blockW)-offset, i*blockH);
         }
       }
     }
+    println(countODD);
+    println(countEVEN);
   } // end createBlocks()
   
-  // setup blocks
-  void drawBlocks()
-  {
-    for (int i=0; i<blocks.size(); i++)
-    {
-      Block b = blocks.get(i);
-      b.render(b.xPos, b.yPos);
-    }
-  } // end drawBlocks()
   
-  /*
   boolean hitBlock(Ball b)
   {
     if(  xPos - blockW/2 <= b.xPos &&
          b.xPos <= xPos + blockW/2 &&
          yPos + blockH/2 > b.yPos - diameter/2)
-         
+         return true;
   }
-  */
+  
   
 } // end class Block
