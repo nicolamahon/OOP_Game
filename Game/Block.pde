@@ -73,7 +73,7 @@ class Block extends Objects
   {
     if(  xPos - blockW/2 <= b.xPos &&
          b.xPos <= xPos + blockW/2 &&
-         yPos + blockH/2 > b.yPos - diameter/2)
+         yPos + blockH/2 > b.yPos - b.diameter/2)
          return true;
   }
   
