@@ -7,19 +7,22 @@ class Paddle extends Objects
   Paddle()
   {
     xPos = mouseX;
-    yPos = height - 10;
+    yPos = height - 30;
     padH = 20;
     padW = 40;
   }
 
+  // draw the paddle
   void render() 
   {
-    fill(0);
+    
+    fill(0,255, 0);
     xPrev = xPos;
     xPos = mouseX;
     rect(xPos, yPos, padW, padH);
   } //end render() - Paddle
   
+  // check for ball hitting the paddle
   boolean hitPaddle(Ball b)
   {
     if(b.xPos <= xPos + padW/2

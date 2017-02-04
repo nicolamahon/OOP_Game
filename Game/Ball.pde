@@ -1,10 +1,9 @@
 class Ball extends Objects
 {
-  //int xPos;
-  //int yPos;
   int xSpeed;
   int ySpeed;
   int diameter;
+  color c;
   
   // constructor
   Ball(int x, int y, int xSpeed1, int ySpeed1, int diameter) 
@@ -13,6 +12,7 @@ class Ball extends Objects
     yPos = y;
     xSpeed = xSpeed1;
     ySpeed = ySpeed1;
+    c = color(0,0,255);
     this.diameter = diameter;
   } 
   

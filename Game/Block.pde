@@ -1,7 +1,5 @@
 class Block extends Objects 
 {
-  //int xPos;
-  //int yPos;
   color c;
   int blockW;
   int blockH;
@@ -27,46 +25,7 @@ class Block extends Objects
        rect(xPos, yPos, blockW, blockH); 
   }
   
-  /*
-   // create the blocks
-  void drawBlocks()
-  {
-    int countODD = 0;
-    int countEVEN = 0;
-    int offset = blockW/2;
-    println("in function createBlocks");
-    for (int i=0; i<numRows; i++)
-    {
-      println("in OUTER FOR - createBlocks");
-      for (int j=0; j<numCols+1; j++)
-      {
-        
-        println("in INNER FOR - createBlocks");
-        if(i%2 == 0)  // if even row
-        {
-          b.xPos = j*blockW;
-          b.yPos = i*blockH;
-          b.render(b.xPos, b.yPos);
-          blocks.add(b);
-          countODD++;
-          //b.render(j*blockW, i*blockH);
-        }
-        else    // if odd row
-        {
-          b.xPos = (j*blockW)-offset;
-          b.yPos = i*blockH;
-          b.render(b.xPos, b.yPos);
-          blocks.add(b);
-          countEVEN++;
-          //b.render((j*blockW)-offset, i*blockH);
-        }
-      }
-    }
-    println(countODD);
-    println(countEVEN);
-  } // end createBlocks()
-  */
-  
+  // check for ball hitting a block
   boolean hitBlock(Ball b)
   {
     if(b.xPos <= xPos + blockW/2 
