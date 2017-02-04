@@ -71,7 +71,13 @@ class Block extends Objects
     if(b.xPos <= xPos + blockW/2 
     && xPos - blockW/2 <= b.xPos
     && yPos + blockH/2 > b.yPos - b.diameter/2)
-    return true;
+    {
+      return true;
+    }
+    else 
+    {
+      return false;
+    }
   }
   
   

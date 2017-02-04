@@ -30,6 +30,9 @@ void draw()
     
     // check for impacts of ball with block
     checkImpactBlock();
+    
+    //check for new ball needed
+    newBall();
 }
 
 
@@ -71,7 +74,8 @@ void checkImpactBlock()
   {
     for(int i=0; i<blocks.size(); i++)
     {
-      if(blocks.get(i) != null && blocks.get(i).hitBlock(ball) == true)
+      Block a = blocks.get(i);
+      if(a != null && a.hitBlock(ball) == true)
       {
         ball.bounce();
         blocks.remove(i);
@@ -81,6 +85,33 @@ void checkImpactBlock()
   }
 } // end checkImpactBlock()
 
+// if ball lost, give new ball
+void newBall()
+{
+  if(ball != null && ball.yPos > height)
+  {
+    ball = null;
+    score = 0;
+  }
+}
 
+boolean winState = false;
+
+void winner()
+{
+  for(int i=0; i<blocks.size(); i++)
+  {
+    if(blocks.get(i) == null)
+    {
+      winState = true;
+      break;
+    }
+  }
+  if(winState == true)
+  {
+    println("WINNER");
+    exit();
+  }
+}
 
   
