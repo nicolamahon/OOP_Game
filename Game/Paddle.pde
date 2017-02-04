@@ -1,9 +1,17 @@
 class Paddle extends Objects 
 {
-  xPos = mouseX;
-  yPos = height - 10;
   int xPrev;
-  int padH = 20;
-  int padW = 40;
+  int padH;
+  int padW;
+  
+  Paddle()
+  {
+    xPos = mouseX;
+    yPos = height - 10;
+    padH = 20;
+    padW = 40;
+  }
+
+
   
 }
