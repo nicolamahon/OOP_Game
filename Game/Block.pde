@@ -20,9 +20,6 @@ class Block extends Objects
     numCols = 10.0;
   }
 
-  
-
-
   // draw block
   void render(int xPos, int yPos) 
   {
@@ -71,10 +68,10 @@ class Block extends Objects
   
   boolean hitBlock(Ball b)
   {
-    if(  xPos - blockW/2 <= b.xPos &&
-         b.xPos <= xPos + blockW/2 &&
-         yPos + blockH/2 > b.yPos - b.diameter/2)
-         return true;
+    if(  b.xPos <= xPos + blockW/2 
+    && xPos - blockW/2 <= b.xPos
+    && yPos + blockH/2 > b.yPos - b.diameter/2)
+    return true;
   }
   
   

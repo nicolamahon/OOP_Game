@@ -5,14 +5,17 @@ void setup()
   b.drawBlocks();
 }
 
-
+// global variables
 ArrayList<Block> blocks = new ArrayList<Block>();
 Block b = new Block(0,0);
+Ball ball;
+
+int score;
 
 void draw() 
 {
-    
-    
+    background(255);
+    scoreboard();
 }
 
 void printBlocks()
@@ -35,4 +38,13 @@ void blockDraw()
       b.render(b.xPos, b.yPos);
     }
   }
+}
+
+// draw scoreboard
+void scoreboard()
+{
+  fill(0, 0, 0);
+  rect(brickWidth/2, 300, brickWidth, brickHeight);
+  fill(255);
+  text("Score: "+score, 1, 305);
 }
