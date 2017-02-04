@@ -1,0 +1,5 @@
+class Paddle extends Objects 
+{
+  
+  
+}
