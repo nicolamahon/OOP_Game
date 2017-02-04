@@ -72,3 +72,15 @@ void ballUpdate()
       ball.update();
     }
 }
+
+
+void checkImpactPaddle()
+{
+  if (ball != null && paddle.hitPaddle(ball)) 
+  {
+    // bounce 
+    ball.bounce();
+    // change ball velocity based on paddle
+    paddle.Velocity(ball);
+  }
+}
