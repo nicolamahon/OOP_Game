@@ -31,7 +31,7 @@ boolean winState = false;
 void draw() 
 {
     // draw the blocks as they are in the arraylist  
-    drawAllBlocks();
+    //drawAllBlocks();
     
     // create ball and update position
     //ballUpdate();
@@ -41,6 +41,7 @@ void draw()
       drawAllBlocks();
       ball.render();
       ball.update();
+      scoreboard();
     }
     
     // create paddle
@@ -69,10 +70,10 @@ void draw()
 // draw scoreboard
 void scoreboard()
 {
-  fill(255, 0, 0);
-  rect(0, height*0.6, width/10, height/25);
+  fill(255);
+  rect(0, height*0.73, width/7, height/20);
   fill(0);
-  text("Score: "+score, 1, 305);
+  text("Score: "+score, 2, 307);
 }
 
 // create and update ball location
@@ -155,12 +156,12 @@ void mousePressed()
 
 void initialiseBlocks()
 {
-  for (int j=0; j < 10; j++) 
-  { // rows
+  for (int j=0; j < height/40; j++) // rows
+  { 
     // location of each row  
     int y = height/100 + j * width/20;
     
-    // set the row offset
+    // set offset so that blocks are not aligned from row to row
     int offset = 0;
     
     if (j % 2 == 0) // if even numbered row 
