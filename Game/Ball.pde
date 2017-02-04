@@ -39,6 +39,10 @@ class Ball extends Objects
     }
   }
   
- 
+ // when ball hits paddle or block it will bounce Up/Down
+  void bounce() 
+  {
+    ySpeed *= -1;
+  }
   
 }
