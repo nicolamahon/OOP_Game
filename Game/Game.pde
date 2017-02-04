@@ -3,12 +3,14 @@ void setup()
   size(500, 500);
   cursor(CROSS);
   b.drawBlocks();
+  paddle = new Paddle();
 }
 
 // global variables
 ArrayList<Block> blocks = new ArrayList<Block>();
 Block b = new Block(0,0);
 Ball ball;
+Paddle paddle;
 
 int score;
 
@@ -17,11 +19,17 @@ void draw()
     background(255);
     scoreboard();
     
-    if (ball != null)
-    {
-      ball.render();
-      ball.update();
-    }
+    // create ball and update position
+    ballUpdate();
+    
+    // create paddle
+    paddle.render();
+  
+    // check for impacts of ball with paddle
+    checkImpactPaddle();
+    
+    // check for impacts of ball with block
+    checkImpactBlock();
 }
 
 void printBlocks()
