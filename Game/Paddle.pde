@@ -20,4 +20,9 @@ class Paddle extends Objects
     rect(xPos, yPos, padW, padH);
   }
   
+  boolean hitPaddle(Ball b)
+  {
+    
+  }
+  
 }
