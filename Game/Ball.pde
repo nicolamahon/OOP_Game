@@ -15,6 +15,13 @@ class Ball extends Objects
     this.diameter = diameter;
   } 
   
+  void render() 
+  {
+    fill(0);
+    ellipse(xPos, yPos, diameter, diameter);
+  }
+  
+   
   
   
 }
