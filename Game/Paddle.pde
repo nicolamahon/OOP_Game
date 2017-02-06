@@ -3,24 +3,33 @@ class Paddle extends Objects
   int xPrev;
   int padH;
   int padW;
+  color c;
   
-  Paddle()
+  Paddle(int padH, int padW)
   {
     xPos = mouseX;
     yPos = height - 30;
-    padH = 10;
-    padW = 80;
+    this.padH = padH;
+    this.padW = padW;
+    c = color(random(255), random(255), random(255));
   }
 
   // draw the paddle
   void render() 
   {
-    
-    fill(0,255, 0);
+    fill(c);
+    //xPrev = xPos;
+    //xPos = mouseX;
+    rect(width/2+padW/2, height-3*padH, padW, padH);
+  } //end render() - Paddle
+  
+  void update()
+  {
+    fill(c);
     xPrev = xPos;
     xPos = mouseX;
     rect(xPos, yPos, padW, padH);
-  } //end render() - Paddle
+  }
   
   // check for ball hitting the paddle
   boolean hitPaddle(Ball b)
@@ -40,7 +49,7 @@ class Paddle extends Objects
   // to change the velocity of the ball depending on paddle interaction
   void Velocity(Ball b)
   {
-    int Vector = xPos - xPrev;
+    float Vector = xPos - xPrev;
     b.xSpeed = b.xSpeed + Vector;
   }
   

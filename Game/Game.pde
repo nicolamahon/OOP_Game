@@ -12,10 +12,13 @@ void setup()
   scoreboard();
   
   // class objects
-  paddle = new Paddle();
-  ball = new Ball(paddle.xPos, paddle.yPos, 1, 1, 15);
-  
+  paddle = new Paddle(15, 80);
+  ball = new Ball(paddle.xPos, paddle.yPos, 2, 2, 15);
+  //ball = new Ball();
   ballUpdate();
+  
+  // create paddle
+  paddle.render();
   
 }
 
@@ -26,6 +29,7 @@ Paddle paddle;
 
 // global variables
 int score;
+int ballCount = 3;
 boolean winState = false;
 
 void draw() 
@@ -45,7 +49,7 @@ void draw()
     }
     
     // create paddle
-    paddle.render();
+    paddle.update();
   
     // check for impacts of ball with paddle
     checkImpactPaddle();
@@ -53,13 +57,11 @@ void draw()
     // check for impacts of ball with block
     checkImpactBlock();
     
+    // increase difficulty
+    levelUp();
+    
     //check for new ball needed
-    //checkLostBall();
-    if(ball != null && ball.yPos > height)
-    {
-      ball = null;
-      score = 0;
-    }
+    checkLostBall();
     
     // check for winner
     winner();
@@ -71,9 +73,15 @@ void draw()
 void scoreboard()
 {
   fill(255);
-  rect(0, height*0.73, width/7, height/20);
+  rect(0, height*0.73, width/6, height/20);
   fill(0);
   text("Score: "+score, 2, 307);
+  
+  // display number of balls left
+  fill(255);
+  rect(0, height*0.73+20, width/6, height/20);
+  fill(0);
+  text("Balls Left: "+ballCount, 2, 327);
 }
 
 // create and update ball location
@@ -83,7 +91,7 @@ void ballUpdate()
   
   if (ball != null)
     {
-      ball.render();
+      //ball.render();
       ball.update();
     }
 }
@@ -121,7 +129,12 @@ void checkImpactBlock()
 // if ball lost
 void checkLostBall()
 {
-  
+  if(ball != null && ball.yPos > height)
+    {
+      ball = null;
+      score = 0;
+      ballCount--;
+    }
 }
 
 
@@ -144,16 +157,22 @@ void winner()
 }
 
 // provide a new ball
-void mousePressed() 
+void mouseClicked() 
 {
     // create ball
     if (ball == null) 
     {
-      ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 1, 1, 15);
+      // check if the player has used all their balls
+      if(ballCount > 0)
+      {
+        ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 1, 1, 15);
+        ball.render();
+      }
     }
     
 }
 
+// to create the block X,Y positions and save them to the arraylist
 void initialiseBlocks()
 {
   for (int j=0; j < height/40; j++) // rows
@@ -164,7 +183,9 @@ void initialiseBlocks()
     // set offset so that blocks are not aligned from row to row
     int offset = 0;
     
-    if (j % 2 == 0) // if even numbered row 
+    if (j % 2 == 0) // if even numbered row, create an offset
+    // offset allows for half a brick to display on the 
+    // screen edge so that there are no gaps on alternating rows
     {
       offset = width/16;
     }
@@ -172,21 +193,39 @@ void initialiseBlocks()
     for (int i=0-offset; i < width+50/2.0; i += 50) 
     { 
       blocks.add(new Block(i,y));
-      println(i, y);
+      //println(i, y);
     }
   }
 }
 
+// display the blocks from the array list, based on pre-initialised X,Y positions
 void drawAllBlocks()
 {
-  int count = 0;
+  //int count = 0;
   for (int i=0; i<blocks.size()-1; i++)
   {
     Block b = blocks.get(i);
     b.render(b.xPos, b.yPos);
-    count++;
+    //count++;
   }
-  println(count);
+  //println(count);
 }
 
-  
+// add difficulty as player's score increases
+void levelUp()
+{
+  if (score > 5)
+  {
+    //background(0);
+    paddle.padW = 40;
+    paddle.c = color(255, 0, 0);
+    paddle.update();
+  }
+  if (score > 10)
+  {
+    //background(0);
+    paddle.padW = 150;
+    paddle.c = color(6, 200, 199);
+    paddle.update();
+  }
+}
