@@ -38,63 +38,48 @@ void draw()
 {
     background(123);
     
-    // draw scoreboard
-    scoreboard();
-    
     // draw the rows of blocks
     drawAllBlocks();
     
+    // draw scoreboard
+    printStats();
+    
+    // draw paddle and update pos
+    paddle.render();
+        
     //draw ball and update position
     if(ball != null)
     {
       createBall();
     }
     
-    if (ballFlag)
+    
+    // check for impacts of ball with paddle
+    if(ball != null && paddle.hitPaddle(ball))
     {
-      if(ball.yPos > height)
-      {
-        background(0);
-        ballFlag = false;
-        score = 0;
-        ballCount--;
-        balls.remove(ball);
-      }
-      
-      background(255); // to erase all the ball dragging animations
-      //ballFlag = true;
-      drawAllBlocks();
-      ball.render();
-      ball.update();
-      scoreboard();
-      paddle.render();
-      paddle.update();
+        checkImpactPaddle();
     }
     
-   
-    
-    scoreboard();
-    
-    
-    // create paddle
-    paddle.update();
-  
-    // check for impacts of ball with paddle
-    checkImpactPaddle();
-    
     // check for impacts of ball with block
-    checkImpactBlock();
+    if(ball != null)
+    {
+      checkImpactBlock();
+    }
     
-    // increase difficulty
-    levelUp();
+    // bounce ball if hits top of screen
+    if (ball != null && ball.yPos-diameter/2 < 0)
+    {
+      ball.bounce();
+    }
     
-    //check for new ball needed
-    checkLostBall();
+    // if ball out of bounds i.e. lost
+    if(ball != null && ball.yPos-diameter/2 > height)
+    {
+      ballLost();
+    }
+
     
-    // check for winner
-    winner();
-    
-}
+} // end draw()
 
 
 /**** Begin game methods ****/
@@ -125,9 +110,19 @@ void initialiseBlocks()
   }
 }
 
+// display the blocks from the array list, based on pre-initialised X,Y positions
+void drawAllBlocks()
+{
+  for (int i=0; i<blocks.size()-1; i++)
+  {
+    Block b = blocks.get(i);
+    b.render();
+  }
+}
+
 
 // draw scoreboard
-void scoreboard()
+void printStats()
 {
   fill(255);
   rect(0, height*0.73, width/6, height/20);
@@ -142,49 +137,55 @@ void scoreboard()
 }
 
 // create and update ball location
-void ballUpdate()
+void createBall()
 {
-  background(125);
-  
-  //if (ball != null)
-  if(ballFlag)
-    {
-      //ball.render();
-      ball.update();
-    }
+  ball.render();
+  ball.update();
 }
 
 // check for ball impact with paddle
 void checkImpactPaddle()
 {
-  //if (ball != null && paddle.hitPaddle(ball))
-  if (ballFlag == true && paddle.hitPaddle(ball)) 
-  {
-    // bounce 
-    ball.bounce();
-    // change ball velocity based on paddle
-    paddle.Velocity(ball);
-  }
-} // end checkImpactPaddle()
+     ball.bounce();
+     paddle.velocity(ball);   
+} 
 
 // check for ball impact with block
 void checkImpactBlock()
 {
-  //if (ball != null)
-  if (ballFlag)
+  for(int i=0; i<blocks.size(); i++)
   {
-    for(int i=0; i<blocks.size(); i++)
-    {
-      Block a = blocks.get(i);
-      if(a != null && a.hitBlock(ball) == true)
-      { 
-        ball.bounce();
-        blocks.remove(i);
-        score++;
-      }
+    Block b = blocks.get(i);
+    if(b != null && b.hitBlock(ball) == true)
+    { 
+      ball.bounce();
+      blocks.remove(i);
+      score++;
     }
   }
-} // end checkImpactBlock()
+} 
+
+// if ball is lost, out of bounds
+void ballLost()
+{
+  ball = null;
+  score = 0;
+}
+
+
+// provide a new ball
+void mouseClicked() 
+{
+    // if the ball has gone out of bounds
+    if (ball == null) 
+    {
+         ball = new Ball(paddle.xPos+(padW/2), height-padH-diameter, 0, -2);
+    }
+    
+}
+
+//////////////////////////////////////////////////////////////////////////
+/*
 
 // if ball lost
 void checkLostBall()
@@ -217,53 +218,22 @@ void winner()
   }
 }
 
-// provide a new ball
-void mouseClicked() 
-{
-    // if the ball has gone out of bounds
-    if (!ballFlag) 
-    {
-      // check if the player has used all their balls
-      if(ballCount > 0)
-      {
-        //ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 1, 1, 15);
-        ball.render();
-        //ball.update();
-      }
-    }
-    
-}
-
-
-
-// display the blocks from the array list, based on pre-initialised X,Y positions
-void drawAllBlocks()
-{
-  //int count = 0;
-  for (int i=0; i<blocks.size()-1; i++)
-  {
-    Block b = blocks.get(i);
-    b.render(b.xPos, b.yPos);
-    //count++;
-  }
-  //println(count);
-}
 
 // add difficulty as player's score increases
 void levelUp()
 {
   if (score > 5)
   {
-    //background(0);
     paddle.padW = 40;
     paddle.c = color(255, 0, 0);
     paddle.update();
   }
   if (score > 10)
   {
-    //background(0);
     paddle.padW = 150;
     paddle.c = color(6, 200, 199);
     paddle.update();
   }
 }
+
+*/

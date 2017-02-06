@@ -22,7 +22,7 @@ class Block extends Objects
   {
     if(b.xPos <= xPos + blockW/2   // if ball center point < block right most side
     && xPos - blockW/2 <= b.xPos  // AND if touching the neighbouring block (block +/- half block size)
-    && yPos + blockH/2 > b.yPos - b.diameter/2)  // AND ball has touched the underneath of the block
+    && yPos + blockH/2 > b.yPos - diameter/2)  // AND ball has touched the underneath of the block
     {
       return true;
     }
