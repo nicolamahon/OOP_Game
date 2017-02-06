@@ -23,7 +23,7 @@ class Ball extends Objects
   // ball render
   void render() 
   {
-    fill(0);
+    fill(c);
     ellipse(xPos, yPos, diameter, diameter);
   }
   

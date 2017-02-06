@@ -1,11 +1,9 @@
 class Paddle extends Objects 
 {
   int xPrev;
-  int padH;
-  int padW;
   color c;
   
-  Paddle(int padH, int padW)
+  Paddle()
   {
     xPos = mouseX;
     yPos = height - 30;
@@ -18,9 +16,7 @@ class Paddle extends Objects
   void render() 
   {
     fill(c);
-    //xPrev = xPos;
-    //xPos = mouseX;
-    rect(width/2+padW/2, height-3*padH, padW, padH);
+    rect(xPos, yPos, padW, padH);
   } //end render() - Paddle
   
   void update()

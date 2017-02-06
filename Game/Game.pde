@@ -8,14 +8,17 @@ void setup()
   
   // initial block values created and stored in arrayList
   initialiseBlocks();
+  
   // draw a scorebaord
-  scoreboard();
+  //scoreboard();
   
   // class objects
   paddle = new Paddle(15, 80);
-  ball = new Ball(paddle.xPos, paddle.yPos, 2, 2, 15);
-  //ball = new Ball();
+  ball = new Ball(width/2, paddle.yPos, 2, 2, 15);
+  
+  // update ball position
   ballUpdate();
+  ball.render();
   
   // create paddle
   paddle.render();
@@ -24,29 +27,52 @@ void setup()
 
 // global Class variables
 ArrayList<Block> blocks = new ArrayList<Block>();
+ArrayList<Ball> balls = new ArrayList<Ball>(3);
 Ball ball;
-Paddle paddle;
+Paddle paddle = new Paddle(15, 80);
 
 // global variables
 int score;
 int ballCount = 3;
 boolean winState = false;
+boolean ballFlag = true;
 
 void draw() 
 {
-    // draw the blocks as they are in the arraylist  
-    //drawAllBlocks();
-    
-    // create ball and update position
-    //ballUpdate();
-    if (ball != null)
+    /*
+    for( int i=0; i<3; i++)
     {
-      background(125);
+      ball = new Ball();
+      balls.add(ball);
+    }
+    */
+    // create ball and update position
+    //if (ball != null)
+    if (ballFlag)
+    {
+      if(ball.yPos > height)
+      {
+        background(0);
+        ballFlag = false;
+        score = 0;
+        ballCount--;
+        balls.remove(ball);
+      }
+      
+      background(255); // to erase all the ball dragging animations
+      //ballFlag = true;
       drawAllBlocks();
       ball.render();
       ball.update();
       scoreboard();
+      paddle.render();
+      paddle.update();
     }
+    
+   
+    
+    scoreboard();
+    
     
     // create paddle
     paddle.update();
@@ -89,7 +115,8 @@ void ballUpdate()
 {
   background(125);
   
-  if (ball != null)
+  //if (ball != null)
+  if(ballFlag)
     {
       //ball.render();
       ball.update();
@@ -99,7 +126,8 @@ void ballUpdate()
 // check for ball impact with paddle
 void checkImpactPaddle()
 {
-  if (ball != null && paddle.hitPaddle(ball)) 
+  //if (ball != null && paddle.hitPaddle(ball))
+  if (ballFlag == true && paddle.hitPaddle(ball)) 
   {
     // bounce 
     ball.bounce();
@@ -111,7 +139,8 @@ void checkImpactPaddle()
 // check for ball impact with block
 void checkImpactBlock()
 {
-  if (ball != null)
+  //if (ball != null)
+  if (ballFlag)
   {
     for(int i=0; i<blocks.size(); i++)
     {
@@ -129,9 +158,10 @@ void checkImpactBlock()
 // if ball lost
 void checkLostBall()
 {
-  if(ball != null && ball.yPos > height)
+//  if(ball != null && ball.yPos > height)
+    if(ballFlag == true && ball.yPos > height)
     {
-      ball = null;
+      ballFlag = false;
       score = 0;
       ballCount--;
     }
@@ -159,14 +189,15 @@ void winner()
 // provide a new ball
 void mouseClicked() 
 {
-    // create ball
-    if (ball == null) 
+    // if the ball has gone out of bounds
+    if (!ballFlag) 
     {
       // check if the player has used all their balls
       if(ballCount > 0)
       {
-        ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 1, 1, 15);
+        //ball = new Ball(paddle.xPos, height - paddle.padH - ball.diameter/2, 1, 1, 15);
         ball.render();
+        //ball.update();
       }
     }
     
