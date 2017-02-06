@@ -1,53 +1,55 @@
 void setup()
 {
   size(400, 400);
-  background(125);
-  
+    
   // change game cursor
   cursor(CROSS);
   
   // initial block values created and stored in arrayList
+  smooth();
   initialiseBlocks();
   
-  // draw a scorebaord
-  //scoreboard();
-  
   // class objects
-  paddle = new Paddle(15, 80);
-  ball = new Ball(width/2, paddle.yPos, 2, 2, 15);
-  
-  // update ball position
-  ballUpdate();
-  ball.render();
-  
-  // create paddle
-  paddle.render();
-  
+  paddle = new Paddle();
+   
 }
 
 // global Class variables
 ArrayList<Block> blocks = new ArrayList<Block>();
-ArrayList<Ball> balls = new ArrayList<Ball>(3);
+Paddle paddle;
 Ball ball;
-Paddle paddle = new Paddle(15, 80);
+
 
 // global variables
 int score;
 int ballCount = 3;
-boolean winState = false;
-boolean ballFlag = true;
+
+// for initializing the blocks arrayList
+int numRows = 10;
+int numCols = 10;
+int blockW = 50;
+int blockH = 20;
+int padH = 20;
+int padW = 80;
+int diameter = 15;
+
 
 void draw() 
 {
-    /*
-    for( int i=0; i<3; i++)
+    background(123);
+    
+    // draw scoreboard
+    scoreboard();
+    
+    // draw the rows of blocks
+    drawAllBlocks();
+    
+    //draw ball and update position
+    if(ball != null)
     {
-      ball = new Ball();
-      balls.add(ball);
+      createBall();
     }
-    */
-    // create ball and update position
-    //if (ball != null)
+    
     if (ballFlag)
     {
       if(ball.yPos > height)
@@ -92,6 +94,35 @@ void draw()
     // check for winner
     winner();
     
+}
+
+
+/**** Begin game methods ****/
+
+// to create the block X,Y positions and save them to the arraylist
+void initialiseBlocks()
+{
+  for (int j=0; j < height/40; j++) // rows
+  { 
+    // location of each row  
+    int y = height/100 + j * width/20;
+    
+    // set offset so that blocks are not aligned from row to row
+    int offset = 0;
+    
+    if (j % 2 == 0) // if even numbered row, create an offset
+    // offset allows for half a brick to display on the 
+    // screen edge so that there are no gaps on alternating rows
+    {
+      offset = width/16;
+    }
+    // draw the row
+    for (int i=0-offset; i < width+50/2.0; i += 50) 
+    { 
+      blocks.add(new Block(i,y));
+      //println(i, y);
+    }
+  }
 }
 
 
@@ -203,31 +234,7 @@ void mouseClicked()
     
 }
 
-// to create the block X,Y positions and save them to the arraylist
-void initialiseBlocks()
-{
-  for (int j=0; j < height/40; j++) // rows
-  { 
-    // location of each row  
-    int y = height/100 + j * width/20;
-    
-    // set offset so that blocks are not aligned from row to row
-    int offset = 0;
-    
-    if (j % 2 == 0) // if even numbered row, create an offset
-    // offset allows for half a brick to display on the 
-    // screen edge so that there are no gaps on alternating rows
-    {
-      offset = width/16;
-    }
-    // draw the row
-    for (int i=0-offset; i < width+50/2.0; i += 50) 
-    { 
-      blocks.add(new Block(i,y));
-      //println(i, y);
-    }
-  }
-}
+
 
 // display the blocks from the array list, based on pre-initialised X,Y positions
 void drawAllBlocks()
