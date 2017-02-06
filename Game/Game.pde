@@ -43,21 +43,22 @@ void draw()
     
     // draw scoreboard
     printStats();
-    
-    // draw paddle and update pos
-    paddle.render();
-        
+           
     //draw ball and update position
     if(ball != null)
     {
       createBall();
     }
     
-    
+    // draw paddle and update pos
+    paddle.render();
+        
     // check for impacts of ball with paddle
     if(ball != null && paddle.hitPaddle(ball))
     {
-        checkImpactPaddle();
+        //checkImpactPaddle();
+        ball.bounce();
+        paddle.velocity(ball);
     }
     
     // check for impacts of ball with block
@@ -75,7 +76,9 @@ void draw()
     // if ball out of bounds i.e. lost
     if(ball != null && ball.yPos-diameter/2 > height)
     {
-      ballLost();
+      //ballLost();
+      ball = null;
+      score = 0;
     }
 
     

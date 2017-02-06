@@ -6,7 +6,7 @@ class Paddle extends Objects
   Paddle()
   {
     xPos = mouseX;
-    yPos = height - 30;
+    yPos = height - padH;
     c = color(random(255), random(255), random(255));
   }
 
@@ -33,7 +33,7 @@ class Paddle extends Objects
     {
       return false;
     }
-  } // end hitPaddle()
+  }
   
   // to change the velocity of the ball depending on paddle interaction
   void velocity(Ball b)
