@@ -3,28 +3,28 @@ void setup()
   size(400, 400);
   background(0);
   loadData();
-  //printScoreBoard();
   p1 = new Player();
 }
 
+// class variables
 ArrayList<Scores> scoreboard = new ArrayList<Scores>(); 
 Player p1;
 Table t;
 
+// change state flags
 boolean nameFlag = true; 
-boolean boardFlag = false;
-//boolean endScoreFlag = false;
 
+// global variables for scoreBoard
 int name_index = 0;
 String pName = "";
-String allow_chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
 
 
 void draw()
 {
   if(nameFlag)
   {
-   addName();
+    // prints menu to display ask user for their name for leaderBoard
+    addName();
   }
   
   
@@ -102,8 +102,14 @@ void printScoreBoard()
   text("Score", x, y);
   y += 25;
   
+  // **** ADD: sort method to print the scores in DESC order
+  // Create temp arrayList
+  // Copy scores into temp
+  // Find the largest score, print to screen and remove from temp
+  
   
   // print the scores read from the file, row by row
+  // *** only the top 10 is displayed on the screen, see file for all user scores
   for(int i=0; i<10/*scoreboard.size()*/; i++)
   {
      x = 60;    // reset x for each new row being printed
@@ -137,7 +143,7 @@ void addScore()
 {
   TableRow newRow = t.addRow();
   newRow.setString("Name", pName);
-  newRow.setInt("HighScore", 100);
+  newRow.setInt("HighScore", 40);
   
   saveTable(t, "data/leaderBoard.csv");
 }
