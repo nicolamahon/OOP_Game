@@ -2,23 +2,17 @@ class Ball extends Objects
 {
   float xSpeed;
   float ySpeed;
-  int diameter;
   color c;
   
   // constructor
-  Ball(int x, int y, float xSpeed1, float ySpeed1, int diameter) 
+  Ball(int x, int y, float xSpeed1, float ySpeed1) 
   {
     xPos = x;
     yPos = y;
     xSpeed = xSpeed1;
     ySpeed = ySpeed1;
     c = color(0,0,255);
-    this.diameter = diameter;
   } 
-  
-  Ball()
-  {
-  }
   
   // ball render
   void render() 
