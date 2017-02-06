@@ -32,35 +32,24 @@ void draw()
   
 }
 
-void mouseClicked()
-{
-  // if gameoverFlag == true
-    // if x, y, mouse position are over the add "score to leaderboard" button
-  
-  //addName();
-  
-  //background(0);
-  //addScore();
-  //printScoreBoard();
-}
-
+// for taking user input 
 void keyPressed()
 {
-  if(keyPressed && (name_index < 15 || key == ENTER))
+  if(keyPressed && (name_index < 15 || key == ENTER))    // while key input is not delete or enter
   {
     delay(200);
     if(key != BACKSPACE && key != ENTER) //&& allow_chars.indexOf(key) > 0)
     {
-      pName += Character.toUpperCase(key);
-      name_index++;
+      pName += Character.toUpperCase(key);      // add the pressed key to the playerName string
+      name_index++;                             // increment the index
       
     }
-    if(key == ENTER && name_index > 0)  // if enter is pressed, finish
+      if(key == ENTER && name_index > 0)  // if at least 1 char entered and enter is pressed, input is finish
     {
-      nameFlag = false;
-      addScore();
-      background(0);
-      printScoreBoard();
+      nameFlag = false;      // change state to update the animation
+      addScore();            // print menu to ask user to enter name on scoreboard
+      background(0);         // update animation
+      printScoreBoard();     // read the scoreboard from CSV file and print
     }
     if (key == BACKSPACE && name_index == 15)  // if deleting a char during keyboard input
     {
@@ -72,7 +61,7 @@ void keyPressed()
   
 }
 
-
+// load the scores from the "leaderBoard.csv" file
 void loadData()
 {
   // clear arraylist of any random leftovers
@@ -81,7 +70,7 @@ void loadData()
   // load table row by row
   t = loadTable("leaderBoard.csv", "header");
   
-  // add each star to the scoreboard arrayList
+  // add each user score to the scoreboard arrayList
   for (int i = 0; i < t.getRowCount(); i ++)
   {
     TableRow row = t.getRow(i);
@@ -90,9 +79,9 @@ void loadData()
   }
 }
 
+// print the score board table, details in CSV file
 void printScoreBoard()
 {
-  background(0);
   // read the *updated* data from the file into the table
   // file has been updated to include this user's score
   loadData();
@@ -114,7 +103,6 @@ void printScoreBoard()
   y += 25;
   
   
-   
   // print the scores read from the file, row by row
   for(int i=0; i<10/*scoreboard.size()*/; i++)
   {
@@ -130,6 +118,7 @@ void printScoreBoard()
   
 }
 
+// print menu for adding your name to the scoreboard
 void addName()
 {
   fill(0, 255, 0);
@@ -143,6 +132,7 @@ void addName()
   text("Save Name", 55, 165);
 }
 
+// file OUTPUT, write new user scores to the file
 void addScore()
 {
   TableRow newRow = t.addRow();
