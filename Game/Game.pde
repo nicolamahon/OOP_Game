@@ -4,9 +4,6 @@ void setup()
   
   // load the leaderBoard
   loadData();
-    
-  // change game cursor
-  cursor(CROSS);
   
   // initial block values created and stored in arrayList
   smooth();
@@ -42,8 +39,10 @@ String pName = "";
 // change state flags
 boolean nameFlag = false; 
 boolean gameFlag = true;
-boolean endGameFlag = false;
+//boolean endGameFlag = false;
 boolean leaderBoardFlag = false;
+//boolean exitFlag = false;
+boolean blocksFlag = true;
 
 // for initializing the blocks arrayList
 int numRows = 10;
@@ -87,8 +86,6 @@ void draw()
         if(ball != null && paddle.hitPaddle(ball))
         {
             checkImpactPaddle();
-            //ball.bounce();
-            //paddle.velocity(ball);
         }
         
         // check for impacts of ball with block
@@ -107,34 +104,31 @@ void draw()
         if(ball != null && ball.yPos-diameter/2 > height)
         {
           ballLost();
-          //ball = null;
-          //score = 0;
-          //nameFlag = true;
         }
         
         if(ballCount == 0)
         { 
+          gameFlag = false;
           nameFlag = true;
         }
-        
-        
-        if(nameFlag)
-        {
-          background(0);
-          // prints menu to display ask user for their name for leaderBoard
-          addName();
-        }
-        
-        if(leaderBoardFlag)
-        {
-          nameFlag = false;
-          printLeaderBoard();     // read the scoreboard from CSV file and print
-          leaderBoardFlag = false;
-          
-          
-          ///// ****************************** delay and endGame flag
-        }
       } // end if(gameFlag)
+      
+      
+      /* check flags for change of states */
+      if(nameFlag)
+      {
+        background(0);
+        // prints menu to display ask user for their name for leaderBoard
+        addName();
+        // at this stage, key pressed it waiting for the user's input
+        // pressing enter will set the leader board flag to true
+      }
+      
+      if(leaderBoardFlag)
+      {
+         printLeaderBoard();     // read the scoreboard from CSV file and print
+      }
+         
     } // end else for running rest of code
     
 } // end draw()
@@ -207,11 +201,7 @@ void printStats()
   fill(255);
   text("HighScore: "+highscore, 10, 17);
   text("Score: "+score, 160, 17);
-  
-  // display number of balls left
-  //fill(255);
-  //rect(0, height*0.73+20, width/6, height/20);
-  //fill(0);
+
   text("Balls Left: "+ballCount, 275, 17);
 }
 
@@ -372,7 +362,7 @@ void printLeaderBoard()
   {
      x = 60;    // reset x for each new row being printed
      Scores us = scoreboard.get(i);
-     println(us);
+     //println(us);
      textSize(15);
      text(us.name, x, y);
      x += 200;
@@ -389,20 +379,24 @@ void splash()
   image(mainLogo, 0,0);
 }
 
+// display exit screen and auto-terminate program safely, user does not need to close
+void myExit()
+{
+    
+    background(0);
+    PImage exitIMG;
+    exitIMG = loadImage("splash1.JPG");
+    image(exitIMG, 0, 0);
+    textSize(75);
+    text("PLEASE WAIT......", 66, 90);
+    text(".....SYSTEM SHUTTING DOWN", 75, 50);
+
+    gameFlag = true;
+}
+
 //////////////////////////////////////////////////////////////////////////
 /*
 
-// if ball lost
-void checkLostBall()
-{
-//  if(ball != null && ball.yPos > height)
-    if(ballFlag == true && ball.yPos > height)
-    {
-      ballFlag = false;
-      score = 0;
-      ballCount--;
-    }
-}
 
 
 // check for winner
