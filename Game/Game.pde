@@ -14,6 +14,9 @@ void setup()
   
   // class objects
   paddle = new Paddle();
+  
+  // fonts imported
+  font_main = createFont("FSEX300.ttf", 20);
    
 }
 
@@ -24,7 +27,8 @@ Table t;
 Paddle paddle;
 Ball ball;
 
-
+// imported fonts
+PFont font_main;
 
 // global variables
 int score;
@@ -173,6 +177,7 @@ void drawAllBlocks()
 // draw scoreboard
 void printStats()
 {
+  textFont(font_main);
   fill(255);
   rect(0, height*0.73, width/6, height/20);
   fill(0);
