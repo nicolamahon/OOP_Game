@@ -39,10 +39,9 @@ String pName = "";
 // change state flags
 boolean nameFlag = false; 
 boolean gameFlag = true;
-//boolean endGameFlag = false;
 boolean leaderBoardFlag = false;
-//boolean exitFlag = false;
-boolean blocksFlag = true;
+boolean winFlag = false;
+
 
 // for initializing the blocks arrayList
 int numRows = 10;
@@ -111,6 +110,8 @@ void draw()
           gameFlag = false;
           nameFlag = true;
         }
+        
+        winGame();
       } // end if(gameFlag)
       
       
@@ -320,7 +321,7 @@ void addScore()
 {
   TableRow newRow = t.addRow();
   newRow.setString("Name", pName);
-  newRow.setInt("HighScore", 40);
+  newRow.setInt("HighScore", highscore);
   
   saveTable(t, "data/leaderBoard.csv");
 }
@@ -341,10 +342,12 @@ void printLeaderBoard()
   // print the headers for the score board
   fill(255, 0, 0);
   textSize(35);
+  fill(0, 255, 0);
   text("Best Top 10", x, y);
   x = 60;
   y += 50;
   textSize(25);
+  fill(0, 0, 255);
   text("Player", x, y);
   x += 200;
   text("Score", x, y);
@@ -355,19 +358,24 @@ void printLeaderBoard()
   // Copy scores into temp
   // Find the largest score, print to screen and remove from temp
   
-  
+  int count = 0;
   // print the scores read from the file, row by row
   // *** only the top 10 is displayed on the screen, see file for all user scores
-  for(int i=0; i<10/*scoreboard.size()*/; i++)
+  for(int i=0; i<scoreboard.size(); i++)
   {
-     x = 60;    // reset x for each new row being printed
-     Scores us = scoreboard.get(i);
-     //println(us);
-     textSize(15);
-     text(us.name, x, y);
-     x += 200;
-     text(us.topscore, x, y);
-     y += 25;
+     if(count < 10)
+     {
+       x = 60;    // reset x for each new row being printed
+       Scores us = scoreboard.get(i);
+       //println(us);
+       textSize(15);
+       fill(random(0, 255), random(0, 255),random(0, 255)); 
+       text(us.name, x, y);
+       x += 200;
+       text(us.topscore, x, y);
+       y += 25;
+       count++;
+     }
   }  
 } // end printLeaderBoard()
 
@@ -379,43 +387,38 @@ void splash()
   image(mainLogo, 0,0);
 }
 
-// display exit screen and auto-terminate program safely, user does not need to close
-void myExit()
-{
-    
-    background(0);
-    PImage exitIMG;
-    exitIMG = loadImage("splash1.JPG");
-    image(exitIMG, 0, 0);
-    textSize(75);
-    text("PLEASE WAIT......", 66, 90);
-    text(".....SYSTEM SHUTTING DOWN", 75, 50);
 
-    gameFlag = true;
+// check for winner
+void winGame()
+{
+  //for(int i=0; i<blocks.size(); i++)
+  //{
+    //if(blocks.get(i) == null)
+    //{
+      winFlag = true;
+      //break;
+    //}
+ // }
+  if(winFlag == true)
+  {
+    fill(0);
+    rect(50, 50, 300, 300);
+    textSize(30);
+    fill(255);
+    text("Congratulations!!   \nYou are \na WINNER!!", 125, 175);
+    //exit();
+    if(frameCount % 240 == 0)
+    { 
+      delay(300);
+      nameFlag = true;
+    }
+  }
 }
+
 
 //////////////////////////////////////////////////////////////////////////
 /*
 
-
-
-// check for winner
-void winner()
-{
-  for(int i=0; i<blocks.size(); i++)
-  {
-    if(blocks.get(i) == null)
-    {
-      winState = true;
-      break;
-    }
-  }
-  if(winState == true)
-  {
-    println("WINNER");
-    exit();
-  }
-}
 
 
 // add difficulty as player's score increases
