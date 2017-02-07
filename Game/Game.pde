@@ -32,6 +32,7 @@ PFont font_main;
 
 // global variables
 int score;
+int highscore;
 int ballCount = 3;
 
 // global variables for scoreBoard
@@ -40,6 +41,8 @@ String pName = "";
 
 // change state flags
 boolean nameFlag = false; 
+boolean gameFlag = true;
+boolean endGameFlag = false;
 
 // for initializing the blocks arrayList
 int numRows = 10;
@@ -60,64 +63,73 @@ void draw()
     }
     else // rest of code
     {
-      background(123);
-      
-      // draw the rows of blocks
-      drawAllBlocks();
-      
-      // draw scoreboard
-      printStats();
-             
-      //draw ball and update position
-      if(ball != null)
+      if(gameFlag)
       {
-        createBall();
-      }
-      
-      // draw paddle and update pos
-      paddle.render();
-          
-      // check for impacts of ball with paddle
-      if(ball != null && paddle.hitPaddle(ball))
-      {
-          //checkImpactPaddle();
+        background(123);
+        
+        // draw the rows of blocks
+        drawAllBlocks();
+        
+        // draw scoreboard
+        printStats();
+               
+        //draw ball and update position
+        if(ball != null)
+        {
+          createBall();
+        }
+        
+        // draw paddle and update pos
+        paddle.render();
+            
+        // check for impacts of ball with paddle
+        if(ball != null && paddle.hitPaddle(ball))
+        {
+            checkImpactPaddle();
+            //ball.bounce();
+            //paddle.velocity(ball);
+        }
+        
+        // check for impacts of ball with block
+        if(ball != null)
+        {
+          checkImpactBlock();
+        }
+        
+        // bounce ball if hits top of screen
+        if (ball != null && ball.yPos-20-diameter/2 < 0)
+        {
           ball.bounce();
-          paddle.velocity(ball);
-      }
-      
-      // check for impacts of ball with block
-      if(ball != null)
-      {
-        checkImpactBlock();
-      }
-      
-      // bounce ball if hits top of screen
-      if (ball != null && ball.yPos-diameter/2 < 0)
-      {
-        ball.bounce();
-      }
-      
-      // if ball out of bounds i.e. lost
-      if(ball != null && ball.yPos-diameter/2 > height)
-      {
-        //ballLost();
-        ball = null;
-        score = 0;
-        nameFlag = true;
-      }
-      
-      if(nameFlag)
-      {
-        background(0);
-        // prints menu to display ask user for their name for leaderBoard
-        addName();
-      }
-    }
+        }
+        
+        // if ball out of bounds i.e. lost
+        if(ball != null && ball.yPos-diameter/2 > height)
+        {
+          ballLost();
+          //ball = null;
+          //score = 0;
+          //nameFlag = true;
+        }
+        
+        if(ballCount == 0)
+        { 
+          nameFlag = true;
+        }
+        
+        
+        if(nameFlag)
+        {
+          background(0);
+          // prints menu to display ask user for their name for leaderBoard
+          addName();
+        }
+      } // end if(gameFlag)
+    } // end else for running rest of code
     
 } // end draw()
 
 
-/**** Begin game methods ****/
+/******************** Begin game methods ********************/
 
 // load the scores from the "leaderBoard.csv" file
 void loadData()
@@ -223,7 +235,15 @@ void checkImpactBlock()
 void ballLost()
 {
   ball = null;
+  if (score > highscore)
+  {
+    highscore = score;
+  }
+  // reset the round score
   score = 0;
+  
+  // reduce number of balls
+  ballCount--;
 }
 
 
@@ -233,7 +253,7 @@ void mouseClicked()
     // if the ball has gone out of bounds
     if (ball == null) 
     {
-         ball = new Ball(paddle.xPos+(padW/2), height-padH-diameter, 0, -2);
+         ball = new Ball(paddle.xPos+(padW/2), height-padH-diameter, 2, -2);
     }
     
 }
@@ -252,32 +272,43 @@ void keyPressed()
     }
       if(key == ENTER && name_index > 0)  // if at least 1 char entered and enter is pressed, input is finish
     {
-      nameFlag = false;      // change state to update the animation
       addScore();            // print menu to ask user to enter name on scoreboard
       background(0);         // update animation
       printLeaderBoard();     // read the scoreboard from CSV file and print
+      nameFlag = false;      // change state to update the animation
     }
-    if (key == BACKSPACE && name_index == 15)  // if deleting a char during keyboard input
+    if (key == BACKSPACE && name_index > 0)  // if deleting a char during keyboard input
     {
       delay(200);
       name_index--;
       pName = pName.substring(0, pName.length()-1);
     }
   } // end outer if 
+  else
+  {
+    if(key == BACKSPACE && name_index == 15)
+    {
+      delay(200);
+      pName = "";
+      addName(); 
+    }
+  } // end else()
 } // end keypressed()
 
 // print menu for adding your name to the scoreboard
 void addName()
 {
-  fill(0, 255, 0);
-  rect(50, 50, 100, 30);
   fill(255);
-  text("Enter Your Name:", 55, 65); 
-  
-  text(pName, 55, 100);
-  
-  rect(50, 160, 100, 30);
-  text("Save Name", 55, 165);
+  textSize(30);
+  fill(255, 128, 0);
+  text("Your HighScore: "+score, 55, 65);
+  fill(255, 0, 127);
+  text("Enter Your Name:", 70, 125); 
+  fill(255);
+  text("Press Enter to Save", 60, 300);
+  textSize(50);
+  fill(0, 255, 255);
+  text(pName, 110, 190);
 }
 
 // file OUTPUT, write new user scores to the file
@@ -296,6 +327,8 @@ void printLeaderBoard()
   // read the *updated* data from the file into the table
   // file has been updated to include this user's score
   loadData();
+  
+  background(0);
   
   // variables for printing to the screen
   int x = 90;

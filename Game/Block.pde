@@ -14,7 +14,7 @@ class Block extends Objects
   void render() 
   {
        fill(c);
-       rect(xPos, yPos, blockW, blockH); 
+       rect(xPos, yPos+20, blockW, blockH); 
   }
   
   // check for ball hitting a block
