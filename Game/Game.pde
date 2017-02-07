@@ -280,17 +280,16 @@ void keyPressed()
     }
       if(key == ENTER && name_index > 0)  // if at least 1 char entered and enter is pressed, input is finish
     {
-      addScore();            // print menu to ask user to enter name on scoreboard
-      background(0);         // update animation
-      //printLeaderBoard();     // read the scoreboard from CSV file and print
-      leaderBoardFlag = true;
-      nameFlag = false;      // change state to update the animation
+      addScore();              // print menu to ask user to enter name on scoreboard
+      background(0);           // update animation
+      leaderBoardFlag = true;  // proceed to print the leader board
+      nameFlag = false;        // change state to FALSE to update the animation
     }
     if (key == BACKSPACE && name_index > 0)  // if deleting a char during keyboard input
     {
-      delay(200);
-      name_index--;
-      pName = pName.substring(0, pName.length()-1);
+      delay(200);              
+      name_index--;                                  // move the string index back one to overwrite the deleted letter
+      pName = pName.substring(0, pName.length()-1); // reassign the substring (-1) of the name to the name
     }
   } // end outer if 
   else
@@ -298,7 +297,7 @@ void keyPressed()
     if(key == BACKSPACE && name_index == 15)
     {
       delay(200);
-      pName = "";
+      pName = "";              
       addName(); 
     }
   } // end else()
@@ -377,7 +376,7 @@ void printLeaderBoard()
        x = 80;    // reset x for each new row being printed
        Scores us = scoreboard.get(i);
        //println(us);
-       textSize(15);
+       textSize(18);
        fill(random(0, 255), random(0, 255),random(0, 255)); 
        text(us.name, x, y);
        x += 160;
