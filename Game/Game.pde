@@ -197,12 +197,9 @@ void printStats()
 {
   textFont(font_main);
   textSize(15);
-  //fill(255);
-  //rect(0, height*0.73, width/6, height/20);
   fill(255);
   text("HighScore: "+highscore, 10, 17);
   text("Score: "+score, 160, 17);
-
   text("Balls Left: "+ballCount, 275, 17);
 }
 
@@ -231,6 +228,7 @@ void checkImpactBlock()
       ball.bounce();
       blocks.remove(i);
       score++;
+      levelUp();
     }
   }
 } 
@@ -246,8 +244,14 @@ void ballLost()
   // reset the round score
   score = 0;
   
-  // reduce number of balls
+  // reduce number of balls by 1
   ballCount--;
+  
+  // reset the paddle size to the original values
+  // change colour to inform player of the change
+  padH = 20;
+  padW = 80;
+  paddle.c = color(random(0, 255), random(0, 255), random(0, 255));
 }
 
 
@@ -337,21 +341,26 @@ void printLeaderBoard()
   
   // variables for printing to the screen
   int x = 90;
-  int y = 55;
+  int y = 45;
   
   // print the headers for the score board
   fill(255, 0, 0);
   textSize(35);
   fill(0, 255, 0);
   text("Best Top 10", x, y);
-  x = 60;
-  y += 50;
+  x = 70;
+  y += 40;
   textSize(25);
   fill(0, 0, 255);
   text("Player", x, y);
-  x += 200;
+  x += 150;
   text("Score", x, y);
   y += 25;
+  
+  // print instructions to terminate game
+  fill(255);
+  text("Press ESC to EXIT", 75, height-20);
+  
   
   // **** ADD: sort method to print the scores in DESC order
   // Create temp arrayList
@@ -365,18 +374,18 @@ void printLeaderBoard()
   {
      if(count < 10)
      {
-       x = 60;    // reset x for each new row being printed
+       x = 80;    // reset x for each new row being printed
        Scores us = scoreboard.get(i);
        //println(us);
        textSize(15);
        fill(random(0, 255), random(0, 255),random(0, 255)); 
        text(us.name, x, y);
-       x += 200;
+       x += 160;
        text(us.topscore, x, y);
        y += 25;
        count++;
      }
-  }  
+  }    
 } // end printLeaderBoard()
 
 void splash()
@@ -391,22 +400,22 @@ void splash()
 // check for winner
 void winGame()
 {
-  //for(int i=0; i<blocks.size(); i++)
-  //{
-    //if(blocks.get(i) == null)
-    //{
+  for(int i=0; i<blocks.size(); i++)
+  {
+    if(blocks.get(i) == null)
+    {
       winFlag = true;
-      //break;
-    //}
- // }
+      break;
+    }
+  }
+  
   if(winFlag == true)
   {
     fill(0);
     rect(50, 50, 300, 300);
     textSize(30);
-    fill(255);
-    text("Congratulations!!   \nYou are \na WINNER!!", 125, 175);
-    //exit();
+    fill(random(0, 255), random(0, 255), random(0, 255));
+    text("Congratulations\n    You are \n  a WINNER!!", 88, 165);
     if(frameCount % 240 == 0)
     { 
       delay(300);
@@ -416,26 +425,19 @@ void winGame()
 }
 
 
-//////////////////////////////////////////////////////////////////////////
-/*
-
-
-
 // add difficulty as player's score increases
 void levelUp()
 {
   if (score > 5)
   {
-    paddle.padW = 40;
+    padW = 40;
     paddle.c = color(255, 0, 0);
-    paddle.update();
+    paddle.render();
   }
   if (score > 10)
   {
-    paddle.padW = 150;
+    padW = 150;
     paddle.c = color(6, 200, 199);
-    paddle.update();
+    paddle.render();
   }
 }
-
-*/
