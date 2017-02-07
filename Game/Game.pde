@@ -43,6 +43,7 @@ String pName = "";
 boolean nameFlag = false; 
 boolean gameFlag = true;
 boolean endGameFlag = false;
+boolean leaderBoardFlag = false;
 
 // for initializing the blocks arrayList
 int numRows = 10;
@@ -123,6 +124,16 @@ void draw()
           // prints menu to display ask user for their name for leaderBoard
           addName();
         }
+        
+        if(leaderBoardFlag)
+        {
+          nameFlag = false;
+          printLeaderBoard();     // read the scoreboard from CSV file and print
+          leaderBoardFlag = false;
+          
+          
+          ///// ****************************** delay and endGame flag
+        }
       } // end if(gameFlag)
     } // end else for running rest of code
     
@@ -190,16 +201,18 @@ void drawAllBlocks()
 void printStats()
 {
   textFont(font_main);
+  textSize(15);
+  //fill(255);
+  //rect(0, height*0.73, width/6, height/20);
   fill(255);
-  rect(0, height*0.73, width/6, height/20);
-  fill(0);
-  text("Score: "+score, 2, 307);
+  text("HighScore: "+highscore, 10, 17);
+  text("Score: "+score, 160, 17);
   
   // display number of balls left
-  fill(255);
-  rect(0, height*0.73+20, width/6, height/20);
-  fill(0);
-  text("Balls Left: "+ballCount, 2, 327);
+  //fill(255);
+  //rect(0, height*0.73+20, width/6, height/20);
+  //fill(0);
+  text("Balls Left: "+ballCount, 275, 17);
 }
 
 // create and update ball location
@@ -274,7 +287,8 @@ void keyPressed()
     {
       addScore();            // print menu to ask user to enter name on scoreboard
       background(0);         // update animation
-      printLeaderBoard();     // read the scoreboard from CSV file and print
+      //printLeaderBoard();     // read the scoreboard from CSV file and print
+      leaderBoardFlag = true;
       nameFlag = false;      // change state to update the animation
     }
     if (key == BACKSPACE && name_index > 0)  // if deleting a char during keyboard input
@@ -301,7 +315,7 @@ void addName()
   fill(255);
   textSize(30);
   fill(255, 128, 0);
-  text("Your HighScore: "+score, 55, 65);
+  text("Your HighScore: "+highscore, 55, 65);
   fill(255, 0, 127);
   text("Enter Your Name:", 70, 125); 
   fill(255);

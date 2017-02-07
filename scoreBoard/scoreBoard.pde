@@ -51,13 +51,22 @@ void keyPressed()
       background(0);         // update animation
       printScoreBoard();     // read the scoreboard from CSV file and print
     }
-    if (key == BACKSPACE && name_index == 15)  // if deleting a char during keyboard input
+    if (key == BACKSPACE && name_index > 0)  // if deleting a char during keyboard input
     {
       delay(200);
       name_index--;
       pName = pName.substring(0, pName.length()-1);
     }
   } // end outer if
+  else
+  {
+    if(key == BACKSPACE && name_index == 15)
+    {
+      delay(200);
+      pName = "";
+      addName(); 
+    }
+  }
   
 }
 
@@ -120,13 +129,20 @@ void printScoreBoard()
      x += 200;
      text(us.topscore, x, y);
      y += 25;
-  }  
+  }
+  
+  // delay the program exiting so that the user can see the exit msg
+    if(frameCount % 60 == 0)
+    {
+      exit(); // built in processing fxn to exit the program
+    }
   
 }
 
 // print menu for adding your name to the scoreboard
 void addName()
 {
+  background(0);
   fill(0, 255, 0);
   rect(50, 50, 100, 30);
   fill(255);
