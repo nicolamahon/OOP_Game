@@ -1,8 +1,8 @@
-# OOP_Game_C15755031
+# Block Breaker OOP_Game_C15755031
 DT228/2 Object Oriented Programming <br>
 Processing in Java - Game Assignment
 
-<b>CONCEPT</b><hr>
+<hr><b>CONCEPT</b>
 The concept for my OOP assignment this semester was to make a game, any game, Processing. 
 The video below give a basic demonstration of the functionality of the program and the expected user interactions. 
 
@@ -10,13 +10,13 @@ Click image below to play video:
 
 [![Video](http://img.youtube.com/vi/NytrvnN8dhk/0.jpg)](http://www.youtube.com/watch?v=NytrvnN8dhk)
 
-<b>CONTROLS</b><hr>
+<hr><b>CONTROLS</b>
 <li><ul>MOUSE CLICK to release a ball</ul>
 <ul>MOUSE LEFT and MOUSE RIGHT to move the paddle</ul>
 <ul>ESC to exit the game at any stage</ul></li>
 
 
-<b>BASIC FUNCTIONALITY</b><hr>
+<hr><b>BASIC FUNCTIONALITY</b>
 User is presented with a wall of coloured bricks and a floating paddle.
 Mouse Click releases a ball. There are a maximum of 3 balls available for each game.
 Ball travels around the screen, bouncing off walls.
@@ -35,7 +35,7 @@ Finally the current leader board is printed to the display with the option to ex
 
 Now you know the basic functionality, let's see how it looks....
 
-<b>BLOCK BREAKER</b><hr>
+<hr><b>BLOCK BREAKER</b>
 The user is initially shown a splash screen to welcome them to the game.
 This image is actual game footage. It gives the player an idea of what to expect.  
 This screen displays for a few seconds using a frameCount check, then disappears. 
@@ -51,15 +51,15 @@ This allows for changes in direction, in order to reach all the blocks with the 
 
 ![First Break](/screenshots/break.JPG?raw=true "First Break")
 
-<b>GAMEPLAY</b><hr>
+<hr><b>GAMEPLAY</b>
 As the player's score increases, there are a number of 'level-ups' which increase difficulty. 
 <li><ul>PADDLE RESIZE to change the paddle's surface area, making targeting the ball more difficult</ul>
 <ul>SPEED UPDATES to speed up or slow down the velocity at which the ball is travelling</ul></li>
 
 ![Level Up](/screenshots/levelup.JPG?raw=true "Level Up - Increase Difficulty")
 
-
-<b>WINNING</b><hr>
+<hr>
+<b>WINNING</b>
 The game is won by removing all the blocks on the screen. 
 High Scores are taken as the highest score achieved on a single ball during the game. 
 So if you scored 36 with your first ball, 15 with the second and 28 with the third, 
@@ -71,7 +71,7 @@ they can add their name and score to the leader board.
 
 ![Save Score](/screenshots/savename.JPG?raw=true "Save Score")
 
-<b>LEADER BOARD</b><hr>
+<hr><b>LEADER BOARD</b>
 The leader board is read from a CSV file, containing all the previous player's names and scores. 
 The CSV file contents are read into an arrayList of class objects. The player is asked to enter their name
 to be on the leader board. The program takes input from the keyboard, including 
@@ -83,7 +83,7 @@ This section could use a sorting method to print the scores in DESC order.
 ![Leader Board](/screenshots/leaderboard.JPG?raw=true "Leader Board")
 
 
-<b>TERMINATING THE PROGRAM</b><hr>
+<hr><b>TERMINATING THE PROGRAM</b>
 The game is terminated by pressing the ESC key at any stage. 
 
 
