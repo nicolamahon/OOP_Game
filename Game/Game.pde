@@ -32,7 +32,7 @@ int score;
 int highscore;
 int ballCount = 3;
 
-// global variables for scoreBoard
+// global variables for leader board
 int name_index = 0;
 String pName = "";
 
@@ -43,7 +43,7 @@ boolean leaderBoardFlag = false;
 boolean winFlag = false;
 
 
-// for initializing the blocks arrayList
+// for initializing the blocks
 int numRows = 10;
 int numCols = 10;
 int blockW = 50;
@@ -57,7 +57,7 @@ void draw()
 {
    if (frameCount < 120)
     {
-      //display splash screen
+      //display splash screen with a delay
       splash();
     }
     else // rest of code
@@ -69,7 +69,7 @@ void draw()
         // draw the rows of blocks
         drawAllBlocks();
         
-        // draw scoreboard
+        // draw current game stats
         printStats();
                
         //draw ball and update position
@@ -105,13 +105,18 @@ void draw()
           ballLost();
         }
         
+        // user to now out of balls
         if(ballCount == 0)
         { 
+          // game is over
           gameFlag = false;
+          // ask the user to enter their name for the leader board
           nameFlag = true;
         }
         
+        // check to see if all the blocks are gone, print message to user
         winGame();
+        
       } // end if(gameFlag)
       
       
@@ -143,7 +148,7 @@ void loadData()
   // clear arraylist of any random leftovers
   scoreboard.clear();
 
-  // load table row by row
+  // load data into table
   t = loadTable("leaderBoard.csv", "header");
   
   // add each user score to the scoreboard arrayList
@@ -158,12 +163,13 @@ void loadData()
 // to create the block X,Y positions and save them to the arraylist
 void initialiseBlocks()
 {
-  for (int j=0; j < height/40; j++) // rows
+  // done once in setup()
+  for (int j=0; j < height/40; j++) 
   { 
-    // location of each row  
+    // location of each brick in it's row (ie column position)
     int y = height/100 + j * width/20;
     
-    // set offset so that blocks are not aligned from row to row
+    // set offset so that blocks are not aligned in columns
     int offset = 0;
     
     if (j % 2 == 0) // if even numbered row, create an offset
@@ -172,11 +178,10 @@ void initialiseBlocks()
     {
       offset = width/16;
     }
-    // draw the row
+    // create the row values
     for (int i=0-offset; i < width+50/2.0; i += 50) 
     { 
       blocks.add(new Block(i,y));
-      //println(i, y);
     }
   }
 }
@@ -192,15 +197,15 @@ void drawAllBlocks()
 }
 
 
-// draw scoreboard
+// draw CURRENT game stats
 void printStats()
 {
   textFont(font_main);
   textSize(15);
   fill(255);
-  text("HighScore: "+highscore, 10, 17);
-  text("Score: "+score, 160, 17);
-  text("Balls Left: "+ballCount, 275, 17);
+  text("HighScore: "+highscore, 10, 17);      // highest score this game
+  text("Score: "+score, 160, 17);            // current score on this ball
+  text("Balls Left: "+ballCount, 275, 17);   // number of balls left to play with
 }
 
 // create and update ball location
@@ -213,21 +218,32 @@ void createBall()
 // check for ball impact with paddle
 void checkImpactPaddle()
 {
-     ball.bounce();
-     paddle.velocity(ball);   
+  // if there is an impact bounce the ball 
+  ball.bounce();
+  
+  // pass the paddle velocity to the ball, changing it's speed as a result
+  // this allows the player to direct the ball and speed - VERY IMPORTANT
+  paddle.velocity(ball);   
 } 
 
 // check for ball impact with block
 void checkImpactBlock()
 {
+  // loop through arrayList
   for(int i=0; i<blocks.size(); i++)
   {
     Block b = blocks.get(i);
+    // if there has been an impact with a specific brick
     if(b != null && b.hitBlock(ball) == true)
     { 
+      // the ball bounces back and the block is removed from the arrayList 
       ball.bounce();
       blocks.remove(i);
+      
+      // increment the score
       score++;
+      
+      // check if a levelUp is needed based on the new score
       levelUp();
     }
   }
@@ -236,11 +252,15 @@ void checkImpactBlock()
 // if ball is lost, out of bounds
 void ballLost()
 {
+  // set ball to null - this triggers a number of checks in draw()
   ball = null;
+  
+  // update the highscore value if it's higher this round
   if (score > highscore)
   {
     highscore = score;
   }
+  
   // reset the round score
   score = 0;
   
@@ -258,10 +278,11 @@ void ballLost()
 // provide a new ball
 void mouseClicked() 
 {
-    // if the ball has gone out of bounds
+    // if there is NO ball
     if (ball == null) 
     {
-         ball = new Ball(paddle.xPos+(padW/2), height-padH-diameter, 2, -2);
+        // create one on a mouse click
+        ball = new Ball(paddle.xPos+(padW/2), height-padH-diameter, 2, -2);
     }
     
 }
@@ -294,11 +315,12 @@ void keyPressed()
   } // end outer if 
   else
   {
+    // if deleting, display the current string on each frame, plus/minus any deleted chars
     if(key == BACKSPACE && name_index == 15)
     {
       delay(200);
-      pName = "";              
-      addName(); 
+      pName = "";              // reset the variable to be empty
+      addName();               // print the screen again with current string, appears like the input is 'live'
     }
   } // end else()
 } // end keypressed()
@@ -427,16 +449,32 @@ void winGame()
 // add difficulty as player's score increases
 void levelUp()
 {
-  if (score > 5)
+  // make paddle very large
+  if (score > 10 && score < 20)
   {
-    padW = 40;
+    padW = 180;
+    paddle.c = color(0, 255, 255);
+    paddle.render();
+  }
+  // make paddle very small
+  else if (score >= 20 && score < 30)
+  {
+    padW = 50;
     paddle.c = color(255, 0, 0);
     paddle.render();
   }
-  if (score > 10)
+  // make paddle bigger than average
+  else if (score >= 30 && score < 40)
   {
-    padW = 150;
-    paddle.c = color(6, 200, 199);
+    padW = 90;
+    paddle.c = color(0, 255, 0);
+    paddle.render();
+  }
+  // make paddle very large again, final update
+  else if (score >= 50)
+  {
+    padW = 180;
+    paddle.c = color(0, 255, 255);
     paddle.render();
   }
 }
