@@ -82,10 +82,11 @@ leader board. The arrayList is sorted using an interface method. The Top 10 play
 ![Leader Board](/screenshots/leaderboard.JPG?raw=true "Leader Board")
 
 <hr><b>TERMINATING THE PROGRAM</b><br>
-The game is terminated by pressing the ESC key at any stage. 
+The game is terminated by pressing the ESC key at any stage.
 
 
 <hr><b>ITEMS I'M PROUD OF:</b>
+- successfully implementing an interface that allowed me to perform a sort on the arrayList
 - writing successfully to the CSV file
 - implemeting reading input from the keyboard and displaying it in real time, including any deletions
 - implementing the Level Up options; changing an object's 'DNA' and therefore how it behaved in the game
