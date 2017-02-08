@@ -1,3 +1,5 @@
+import java.util.*;
+
 void setup()
 {
   size(400, 400);
@@ -388,10 +390,12 @@ void printLeaderBoard()
   // Copy scores into temp
   // Find the largest score, print to screen and remove from temp
   
+  Collections.sort(scoreboard);
+  
   int count = 0;
   // print the scores read from the file, row by row
   // *** only the top 10 is displayed on the screen, see file for all user scores
-  for(int i=0; i<scoreboard.size(); i++)
+  for(int i=scoreboard.size()-1; i>=0; i--)
   {
      if(count < 10)
      {

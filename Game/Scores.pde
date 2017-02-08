@@ -1,8 +1,8 @@
-class Scores
+class Scores implements Comparable<Scores>
 {
   // global variables
    String name;
-   int topscore;
+   Integer topscore;
    
    // constructor
    Scores(String line)
@@ -17,6 +17,11 @@ class Scores
    {
      name = row.getString(0);
      topscore = row.getInt(1);
+   }
+   
+   int compareTo(Scores other)
+   {
+     return this.topscore.compareTo(other.topscore);
    }
    
    // for printing during testing
