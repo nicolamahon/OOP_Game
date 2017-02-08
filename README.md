@@ -76,8 +76,8 @@ The CSV file contents are read into an arrayList of class objects. The player is
 to be on the leader board. The program takes input from the keyboard, including 
 allowing for deletion of any erroneous keyboard inputs and displays the name in 'real time'. 
 Once the player presses ENTER, the program saves their name and score and writes it back to the CSV file as part of the 
-leader board. The Top 10 players on the leader board are then displayed back to the Player. 
-This section could use a sorting method to print the scores in DESC order. 
+leader board. The arrayList is sorted using an interface method. The Top 10 players on the leader board are then displayed back to the Player in DESC order. 
+
 
 ![Leader Board](/screenshots/leaderboard.JPG?raw=true "Leader Board")
 
