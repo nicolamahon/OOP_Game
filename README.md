@@ -10,7 +10,7 @@ The video below gives a basic demonstration of the functionality of the program 
 
 [![Video](http://img.youtube.com/vi/7liHKVstD8Y/0.jpg)](http://www.youtube.com/watch?v=7liHKVstD8Y)
 
-<hr><b>CONTROLS</b><br><ul>
+<hr><b>CONTROLS</b><br>
 - MOUSE CLICK to release a ball
 - MOUSE LEFT and MOUSE RIGHT to move the paddle
 - ESC to exit the game at any stage
@@ -25,7 +25,6 @@ The video below gives a basic demonstration of the functionality of the program 
 - For every block that disappears, the player's score increases. 
 - If the player fails to keep the ball from falling off the screen, the ball is lost. 
 - If the ball is lost, the player's score resets.
-
 - As the player's score increases, the difficulty is increased. 
 - Once all 3 balls have been lost, the game is over. 
 - Alternatively, if the player successfully removes all the blocks the game displays a win message. 
@@ -33,11 +32,10 @@ The video below gives a basic demonstration of the functionality of the program 
 - The Player can then add their name to the leader board. 
 - Finally the current leader board is printed to the display with the option to exit the program. 
 
-Now you know the basic functionality, let's see how it looks....
+<br>Now you know the basic functionality, let's see how it looks....
 
 <hr><b>BLOCK BREAKER</b><br>
-The Player is initially shown a splash screen to welcome them to the game.
-This image is actual game footage. It gives the player an idea of what to expect.  
+The Player is initially shown a splash screen to welcome them to the game. This image is actual game footage. It gives the player an idea of what to expect.  
 This screen displays for a few seconds using a frameCount check, then disappears. 
 
 ![Splash](/screenshots/splash.JPG?raw=true "Splash")
@@ -55,6 +53,7 @@ This allows for changes in direction, in order to reach all the blocks with the 
 As the player's score increases, there are a number of 'level-ups' which increase difficulty. 
 - PADDLE RESIZE to change the paddle's surface area, making targeting the ball more difficult
 - SPEED UPDATES to speed up or slow down the velocity at which the ball is travelling
+
 
 ![Level Up](/screenshots/levelup.JPG?raw=true "Level Up - Increase Difficulty")
 
@@ -83,7 +82,6 @@ This section could use a sorting method to print the scores in DESC order.
 
 ![Leader Board](/screenshots/leaderboard.JPG?raw=true "Leader Board")
 
-
 <hr><b>TERMINATING THE PROGRAM</b><br>
 The game is terminated by pressing the ESC key at any stage. 
 
@@ -96,4 +94,4 @@ The game is terminated by pressing the ESC key at any stage.
 - the uniformity and clarity of my display screens, overall pleasing appearance
 - terminating the program at the Player's request rather than self-terminating
 
-That's it, I hope you enjoy playing around with it.
+<br>That's it, I hope you enjoy playing around with it.
