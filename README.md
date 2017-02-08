@@ -35,8 +35,7 @@ The video below gives a basic demonstration of the functionality of the program 
 <br>Now you know the basic functionality, let's see how it looks....
 
 <hr><b>BLOCK BREAKER</b><br>
-The Player is initially shown a splash screen to welcome them to the game. This image is actual game footage. It gives the player an idea of what to expect.  
-This screen displays for a few seconds using a frameCount check, then disappears. 
+The Player is initially shown a splash screen to welcome them to the game. This image is actual game footage. It gives the player an idea of what to expect. This screen displays for a few seconds using a frameCount check, then disappears. 
 
 ![Splash](/screenshots/splash.JPG?raw=true "Splash")
 
