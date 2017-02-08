@@ -8,7 +8,7 @@ The video below give a basic demonstration of the functionality of the program a
 
 Click image below to play video:
 
-[![Video](http://img.youtube.com/vi/NytrvnN8dhk/0.jpg)](http://www.youtube.com/watch?v=NytrvnN8dhk)
+[![Video](http://img.youtube.com/vi/7liHKVstD8Y/0.jpg)](http://www.youtube.com/watch?v=7liHKVstD8Y)
 
 <hr><b>CONTROLS</b><br><ul>
 <li>MOUSE CLICK to release a ball</li>
