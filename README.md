@@ -3,40 +3,40 @@ DT228/2 Object Oriented Programming <br>
 Processing in Java - Game Assignment
 
 <hr><b>CONCEPT</b><br>
-The concept for my OOP assignment this semester was to make a game, any game, Processing. 
-The video below give a basic demonstration of the functionality of the program and the expected user interactions. 
+The concept for my OOP assignment this semester was to make a game, any game, in Processing. 
+The video below gives a basic demonstration of the functionality of the program and the expected Player interactions. 
 
-Click image below to play video:
+<b>Click image below to play video:</b>
 
 [![Video](http://img.youtube.com/vi/7liHKVstD8Y/0.jpg)](http://www.youtube.com/watch?v=7liHKVstD8Y)
 
 <hr><b>CONTROLS</b><br><ul>
-<li>MOUSE CLICK to release a ball</li>
-<li>MOUSE LEFT and MOUSE RIGHT to move the paddle</li>
-<li>ESC to exit the game at any stage</li></ul>
+- MOUSE CLICK to release a ball
+- MOUSE LEFT and MOUSE RIGHT to move the paddle
+- ESC to exit the game at any stage
 
 
 <hr><b>BASIC FUNCTIONALITY</b><br>
-User is presented with a wall of coloured bricks and a floating paddle.
-Mouse Click releases a ball. There are a maximum of 3 balls available for each game.
-Ball travels around the screen, bouncing off walls.
-Player must use the paddle to prevent the ball from 'falling' off the bottom of the screen.  
-When the ball hits one of the coloured blocks, the block disappears.
-For every block that disappears, the player's score increases. 
-If the player fails to keep the ball from falling off the screen, the ball is lost. 
-If the ball is lost, the player's score resets.
+- Player is presented with a wall of coloured bricks and a floating paddle.
+- Mouse Click releases a ball. There are a maximum of 3 balls available for each game.
+- Ball travels around the screen, bouncing off walls.
+- Player must use the paddle to prevent the ball from 'falling' off the bottom of the screen.  
+- When the ball hits one of the coloured blocks, the block disappears.
+- For every block that disappears, the player's score increases. 
+- If the player fails to keep the ball from falling off the screen, the ball is lost. 
+- If the ball is lost, the player's score resets.
 
-As the player's score increases, the difficulty is increased. 
-Once all 3 balls have been lost, the game is over. 
-Alternatively, if the player successfully removes all the blocks the game displays a win message. 
-The player's highest score from all 3 ball-plays is displayed. 
-The user can then add their name to the leader board. 
-Finally the current leader board is printed to the display with the option to exit the program. 
+- As the player's score increases, the difficulty is increased. 
+- Once all 3 balls have been lost, the game is over. 
+- Alternatively, if the player successfully removes all the blocks the game displays a win message. 
+- The player's highest score from all 3 ball-plays is displayed. 
+- The Player can then add their name to the leader board. 
+- Finally the current leader board is printed to the display with the option to exit the program. 
 
 Now you know the basic functionality, let's see how it looks....
 
 <hr><b>BLOCK BREAKER</b><br>
-The user is initially shown a splash screen to welcome them to the game.
+The Player is initially shown a splash screen to welcome them to the game.
 This image is actual game footage. It gives the player an idea of what to expect.  
 This screen displays for a few seconds using a frameCount check, then disappears. 
 
@@ -53,8 +53,8 @@ This allows for changes in direction, in order to reach all the blocks with the 
 
 <hr><b>GAMEPLAY</b><br>
 As the player's score increases, there are a number of 'level-ups' which increase difficulty. 
-<ul><li>PADDLE RESIZE to change the paddle's surface area, making targeting the ball more difficult</li>
-<li>SPEED UPDATES to speed up or slow down the velocity at which the ball is travelling</li></ul>
+- PADDLE RESIZE to change the paddle's surface area, making targeting the ball more difficult
+- SPEED UPDATES to speed up or slow down the velocity at which the ball is travelling
 
 ![Level Up](/screenshots/levelup.JPG?raw=true "Level Up - Increase Difficulty")
 
@@ -78,7 +78,7 @@ The CSV file contents are read into an arrayList of class objects. The player is
 to be on the leader board. The program takes input from the keyboard, including 
 allowing for deletion of any erroneous keyboard inputs and displays the name in 'real time'. 
 Once the player presses ENTER, the program saves their name and score and writes it back to the CSV file as part of the 
-leader board. The Top 10 players on the leader board are then displayed back to the user. 
+leader board. The Top 10 players on the leader board are then displayed back to the Player. 
 This section could use a sorting method to print the scores in DESC order. 
 
 ![Leader Board](/screenshots/leaderboard.JPG?raw=true "Leader Board")
@@ -94,6 +94,6 @@ The game is terminated by pressing the ESC key at any stage.
 - implementing the Level Up options; changing an object's 'DNA' and therefore how it behaved in the game
 - other small things like; being able to instantiate all the blocks, they were very tricky
 - the uniformity and clarity of my display screens, overall pleasing appearance
-- terminating the program at the user's request rather than self-terminating
+- terminating the program at the Player's request rather than self-terminating
 
 That's it, I hope you enjoy playing around with it.
