@@ -449,32 +449,35 @@ void winGame()
 // add difficulty as player's score increases
 void levelUp()
 {
-  // make paddle very large
-  if (score > 10 && score < 20)
+  // make paddle very large and boost ball speed
+  if (score >= 5 && score < 20)
   {
     padW = 180;
     paddle.c = color(0, 255, 255);
     paddle.render();
+    ball.xSpeed += 3;
   }
-  // make paddle very small
+  // make paddle very small and reduce ball speed
   else if (score >= 20 && score < 30)
   {
     padW = 50;
     paddle.c = color(255, 0, 0);
     paddle.render();
+    ball.xSpeed -= 3;
   }
-  // make paddle bigger than average
+  // make paddle bigger than average, no change to ball speed
   else if (score >= 30 && score < 40)
   {
     padW = 90;
     paddle.c = color(0, 255, 0);
     paddle.render();
   }
-  // make paddle very large again, final update
+  // make paddle very large again, super boost ball speed, final update
   else if (score >= 50)
   {
     padW = 180;
     paddle.c = color(0, 255, 255);
     paddle.render();
+    ball.xSpeed += 5;
   }
 }
