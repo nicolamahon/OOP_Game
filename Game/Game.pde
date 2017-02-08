@@ -450,7 +450,7 @@ void winGame()
 void levelUp()
 {
   // make paddle very large and boost ball speed
-  if (score >= 5 && score < 20)
+  if (score >= 10 && score < 20)
   {
     padW = 180;
     paddle.c = color(0, 255, 255);

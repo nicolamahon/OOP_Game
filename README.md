@@ -64,10 +64,11 @@ The game is won by removing all the blocks on the screen.
 High Scores are taken as the highest score achieved on a single ball during the game. 
 So if you scored 36 with your first ball, 15 with the second and 28 with the third, 
 then your high score would be 46. 
-Once the game has ended for the player, either by breaking all the blocks or losing all 3 balls,
-they can add their name and score to the leader board.
 
 ![Winner](/screenshots/winner.JPG?raw=true "Winner")
+
+Once the game has ended for the player, either by breaking all the blocks or losing all 3 balls,
+they can add their name and score to the leader board.
 
 ![Save Score](/screenshots/savename.JPG?raw=true "Save Score")
 
@@ -87,7 +88,7 @@ This section could use a sorting method to print the scores in DESC order.
 The game is terminated by pressing the ESC key at any stage. 
 
 
-<b>ITEMS I'M PROUD OF:</b>
+<hr><b>ITEMS I'M PROUD OF:</b>
 - writing successfully to the CSV file
 - implemeting reading input from the keyboard and displaying it in real time, including any deletions
 - implementing the Level Up options; changing an object's 'DNA' and therefore how it behaved in the game
